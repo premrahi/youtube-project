@@ -1,0 +1,57 @@
+import mic from "../assets/mic.png"
+import user from "../assets/user.png"
+
+const Head = () => {
+  return (
+    <div className="flex items-center justify-between shadow-md px-4 py-2">
+      
+      {/* Left - Logo */}
+      <div className="flex items-center flex-shrink-0">
+        <img
+          alt="menu"
+          className="w-8 p-1 mr-3 h-8 cursor-pointer hover:bg-gray-200 rounded-full"
+          src="https://static.vecteezy.com/system/resources/previews/046/501/988/non_2x/hamburger-menu-bar-flat-icon-for-apps-and-websites-website-navigation-hamburger-menu-icons-vector.jpg"
+        />
+        <div className="relative">
+          <img
+            alt="yt-icon"
+            className="w-24 cursor-pointer"
+            src="https://www.freeiconspng.com/uploads/youtube-logo-png-transparent-image-5.png"
+          />
+          <span className="absolute top-0 -right-4 text-gray-500 text-xs">IN</span>
+        </div>
+      </div>
+
+      {/* Center - Search Bar */}
+      <div className="flex items-center flex-grow justify-center mx-4">
+        <input
+          type="text"
+          className="w-full max-w-xl border border-gray-300 border-r-0 px-4 rounded-l-full focus:outline-none focus:border-blue-500 text-sm h-10"
+          placeholder="Search"
+        />
+        <button className="border border-gray-300 border-l-0 bg-gray-100 hover:bg-gray-200 px-5 h-10 rounded-r-full flex items-center justify-center">
+          <img
+            alt="search"
+            src="https://www.freeiconspng.com/uploads/search-icon-png-21.png"
+            className="w-5 h-5"
+          />
+        </button>
+        <button className="ml-4 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
+          <img alt="voice" src={mic} className="w-5 h-5" />
+        </button>
+      </div>
+
+      {/* Right - User Icon */}
+      <div className="flex-shrink-0 ">
+        <img
+          alt="user"
+          src={user}
+          className="w-10 "
+        />
+      </div>
+
+    </div>
+  );
+};
+
+export default Head;
