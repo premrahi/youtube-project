@@ -1,13 +1,22 @@
+import { useDispatch } from "react-redux";
 import mic from "../assets/mic.png"
 import user from "../assets/user.png"
+import { toggleMenu } from "../utils/appSlice";
 
 const Head = () => {
+
+  const dispatch = useDispatch() ;
+  const toggleMenuHandler = () => {
+    dispatch(toggleMenu()) ;
+  }
+
   return (
     <div className="flex items-center justify-between shadow-md px-4 py-2">
       
       {/* Left - Logo */}
       <div className="flex items-center flex-shrink-0">
         <img
+          onClick={()=>toggleMenuHandler()}
           alt="menu"
           className="w-8 p-1 mr-3 h-8 cursor-pointer hover:bg-gray-200 rounded-full"
           src="https://static.vecteezy.com/system/resources/previews/046/501/988/non_2x/hamburger-menu-bar-flat-icon-for-apps-and-websites-website-navigation-hamburger-menu-icons-vector.jpg"

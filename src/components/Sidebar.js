@@ -27,6 +27,24 @@ const Sidebar = () => {
             <li>Your videos</li>
             <li>Show more</li>
         </ul>
+        <h1 className='font-semibold text-lg  mt-5  '>You {'>'}</h1>
+        <ul>
+            <li>History</li>
+            <li>Playlist</li>
+            <li>Watch later</li>
+            <li>Liked videos</li>
+            <li>Your videos</li>
+            <li>Show more</li>
+        </ul>
+        <h1 className='font-semibold text-lg  mt-5  '>You {'>'}</h1>
+        <ul>
+            <li>History</li>
+            <li>Playlist</li>
+            <li>Watch later</li>
+            <li>Liked videos</li>
+            <li>Your videos</li>
+            <li>Show more</li>
+        </ul>
     </div>
   )
 }
