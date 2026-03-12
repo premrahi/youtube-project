@@ -1,22 +1,21 @@
 import { useDispatch } from "react-redux";
-import mic from "../assets/mic.png"
-import user from "../assets/user.png"
+import mic from "../assets/mic.png";
+import user from "../assets/user.png";
 import { toggleMenu } from "../utils/appSlice";
+import { Link } from "react-router-dom";
 
 const Head = () => {
-
-  const dispatch = useDispatch() ;
+  const dispatch = useDispatch();
   const toggleMenuHandler = () => {
-    dispatch(toggleMenu()) ;
-  }
+    dispatch(toggleMenu());
+  };
 
   return (
     <div className="flex items-center justify-between shadow-md px-4 py-2">
-      
       {/* Left - Logo */}
       <div className="flex items-center flex-shrink-0">
         <img
-          onClick={()=>toggleMenuHandler()}
+          onClick={() => toggleMenuHandler()}
           alt="menu"
           className="w-8 p-1 mr-3 h-8 cursor-pointer hover:bg-gray-200 rounded-full"
           src="https://static.vecteezy.com/system/resources/previews/046/501/988/non_2x/hamburger-menu-bar-flat-icon-for-apps-and-websites-website-navigation-hamburger-menu-icons-vector.jpg"
@@ -27,7 +26,9 @@ const Head = () => {
             className="w-24 cursor-pointer"
             src="https://www.freeiconspng.com/uploads/youtube-logo-png-transparent-image-5.png"
           />
-          <span className="absolute top-0 -right-4 text-gray-500 text-xs">IN</span>
+          <span className="absolute top-0 -right-4 text-gray-500 text-xs">
+            IN
+          </span>
         </div>
       </div>
 
@@ -52,13 +53,8 @@ const Head = () => {
 
       {/* Right - User Icon */}
       <div className="flex-shrink-0 ">
-        <img
-          alt="user"
-          src={user}
-          className="w-10 "
-        />
+        <img alt="user" src={user} className="w-10 " />
       </div>
-
     </div>
   );
 };

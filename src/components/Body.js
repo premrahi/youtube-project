@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import MainContainer from "./MainContainer";
 import Sidebar from "./Sidebar";
+import { Outlet } from "react-router-dom";
 
 const Body = () => {
   const isMenuOpen = useSelector( store => store.app.isMenuOpen)
@@ -9,9 +10,10 @@ const Body = () => {
   return (
     <div className="flex ">
 
-      {isMenuOpen &&  <Sidebar />}  
+      {isMenuOpen && <div className="w-60"> <Sidebar /></div>}  
+
+      <Outlet />
         
-        <MainContainer />
     </div>
   )
 }
