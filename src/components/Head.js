@@ -2,12 +2,41 @@ import { useDispatch } from "react-redux";
 import mic from "../assets/mic.png";
 import user from "../assets/user.png";
 import { toggleMenu } from "../utils/appSlice";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { YOUTUBE_SEARCH_API } from "../utils/constants";
 
 const Head = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [suggestion, setSuggestion] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
   const dispatch = useDispatch();
   const toggleMenuHandler = () => {
     dispatch(toggleMenu());
+  };
+
+  useEffect(() => {
+    if (searchQuery.length === 0) {
+      setSuggestion([]);
+      setShowSuggestions(false);
+      return;
+    }
+    const timer = setTimeout(() => getSuggestions(), 200);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [searchQuery]);
+
+  const getSuggestions = async () => {
+    try {
+      const data = await fetch(YOUTUBE_SEARCH_API(searchQuery));
+      const json = await data.json();
+      setSuggestion(json[1]);
+      setShowSuggestions(true);
+    } catch (e) {
+      console.log("Error fetching suggestions", e);
+    }
   };
 
   return (
@@ -33,22 +62,47 @@ const Head = () => {
       </div>
 
       {/* Center - Search Bar */}
-      <div className="flex items-center flex-grow justify-center mx-4">
-        <input
-          type="text"
-          className="w-full max-w-xl border border-gray-300 border-r-0 px-4 rounded-l-full focus:outline-none focus:border-blue-500 text-sm h-10"
-          placeholder="Search"
-        />
-        <button className="border border-gray-300 border-l-0 bg-gray-100 hover:bg-gray-200 px-5 h-10 rounded-r-full flex items-center justify-center">
-          <img
-            alt="search"
-            src="https://www.freeiconspng.com/uploads/search-icon-png-21.png"
-            className="w-5 h-5"
+      <div className="relative">
+        <div className="flex items-center justify-center mx-4">
+          <input
+            type="text"
+            className="border border-gray-300 border-r-0 w-[37rem] px-4 rounded-l-full focus:outline-none focus:border-blue-500 text-sm h-10"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onFocus={() => searchQuery.length > 0 && setShowSuggestions(true)}
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
           />
-        </button>
-        <button className="ml-4 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
-          <img alt="voice" src={mic} className="w-5 h-5" />
-        </button>
+          <button className="border border-gray-300 border-l-0 bg-gray-100 hover:bg-gray-200 px-5 h-10 rounded-r-full flex items-center justify-center">
+            <img
+              alt="search"
+              src="https://www.freeiconspng.com/uploads/search-icon-png-21.png"
+              className="w-5 h-5"
+            />
+          </button>
+          <button className="ml-4 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
+            <img alt="voice" src={mic} className="w-5 h-5" />
+          </button>
+        </div>
+
+        {showSuggestions && suggestion?.length > 0 && (
+          <div className="absolute bg-white py-2 shadow-lg rounded-lg border w-[37rem] ml-4 border-gray-200 z-50">
+            <ul className="mx-5 py-3">
+              {suggestion?.map((s) => (
+                <li
+                  key={s}
+                  className="hover:bg-gray-100 py-1 px-2 rounded cursor-pointer text-sm flex"
+                  onClick={() => {
+                    setSearchQuery(s);
+                    setShowSuggestions(false);
+                  }}
+                >
+                  <img alt="search" className="w-5 h-5 mr-5" src="https://www.freeiconspng.com/uploads/search-icon-png-21.png" /> {s}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
 
       {/* Right - User Icon */}
