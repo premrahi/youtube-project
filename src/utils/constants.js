@@ -1,5 +1,6 @@
 // export const GOOGLE_API_KEY = "AIzaSyA0XpH7X9dqgMF9tLHMG2tE8Of8Ck2nxss";
-export const GOOGLE_API_KEY = "AIzaSyAqKtrE-kTtgFR22OPeE9_3WCW9cv5Un7I";
+// export const GOOGLE_API_KEY = "AIzaSyAqKtrE-kTtgFR22OPeE9_3WCW9cv5Un7I";
+export const GOOGLE_API_KEY = "AIzaSyAV0UR8PAFgIN-sc4ZoqT2VT2HDep9MHa4";
 
 // videos for home page
 export const YOUTUBE_VIDEO_API =
@@ -19,3 +20,7 @@ export const YOUTUBE_VIDEO_DATA_API = (videoId) =>
 
 export const YOUTUBE_CHANNEL_API = (ID) =>
   `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${ID}&key=${GOOGLE_API_KEY}`;
+
+
+export const YOUTUBE_COMMENTS_API = (videoId) =>
+  `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${videoId}&maxResults=20&key=${GOOGLE_API_KEY}`;

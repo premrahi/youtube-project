@@ -16,6 +16,7 @@ const WatchPage = () => {
   const [channelId,setChannelId] = useState("") ;
   const [viewCount , setViewCount] = useState("") ;
   const [publishedAt, setPublishedAt] = useState("");
+  const [totalComments , setTotalComments] = useState("");
 
 
   // first fetch the video details to get the title
@@ -30,8 +31,9 @@ const WatchPage = () => {
     setChannelId(json?.items?.[0]?.snippet?.channelId)
     setViewCount(json?.items?.[0]?.statistics?.viewCount) ;
     setPublishedAt(json?.items?.[0]?.snippet?.publishedAt);
+    setTotalComments(json?.items?.[0]?.statistics?.commentCount)
     
-    console.log(json);
+    // console.log(json);
     
     getSuggestedVideos(title); // 👈 then fetch suggestions using the title
   };
@@ -64,7 +66,7 @@ const WatchPage = () => {
           allowFullScreen
         ></iframe>
         <div>
-            <Description videoTitle={videoTitle} description={description} channelId={channelId} viewCount={viewCount} publishedAt={publishedAt}/>
+            <Description videoTitle={videoTitle} description={description} channelId={channelId} viewCount={viewCount} publishedAt={publishedAt} videoId={videoId} totalComments={totalComments}/>
         </div>
       </div>
       <div>
