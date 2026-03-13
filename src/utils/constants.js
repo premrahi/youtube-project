@@ -1,4 +1,5 @@
-export const GOOGLE_API_KEY = "AIzaSyA0XpH7X9dqgMF9tLHMG2tE8Of8Ck2nxss";
+// export const GOOGLE_API_KEY = "AIzaSyA0XpH7X9dqgMF9tLHMG2tE8Of8Ck2nxss";
+export const GOOGLE_API_KEY = "AIzaSyAqKtrE-kTtgFR22OPeE9_3WCW9cv5Un7I";
 
 // videos for home page
 export const YOUTUBE_VIDEO_API =
@@ -12,3 +13,9 @@ export const YOUTUBE_SUGGESTIONS_API = (query) =>
 // search suggestion
 export const YOUTUBE_SEARCH_API = (query) =>
   `http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=${query}`;
+
+export const YOUTUBE_VIDEO_DATA_API = (videoId) =>
+  `https://youtube.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${GOOGLE_API_KEY}`;
+
+export const YOUTUBE_CHANNEL_API = (ID) =>
+  `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${ID}&key=${GOOGLE_API_KEY}`;

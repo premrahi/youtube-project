@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { closeMenu } from "../utils/appSlice";
 import { useSearchParams } from "react-router-dom";
-import { YOUTUBE_SUGGESTIONS_API, GOOGLE_API_KEY } from "../utils/constants";
+import { YOUTUBE_SUGGESTIONS_API, YOUTUBE_VIDEO_DATA_API } from "../utils/constants";
 import SuggestedVideo from "./SuggestedVideo";
 import Description from "./Description";
 
@@ -12,16 +12,26 @@ const WatchPage = () => {
   const videoId = searchParams.get("v"); // id from ?v=videoId
   const [suggestedVideos, setSuggestedVideos] = useState([]);
   const [videoTitle, setVideoTitle] = useState("");
+  const [description , setDescription] = useState("") ;
+  const [channelId,setChannelId] = useState("") ;
+  const [viewCount , setViewCount] = useState("") ;
+  const [publishedAt, setPublishedAt] = useState("");
+
 
   // first fetch the video details to get the title
   const getVideoDetails = async () => {
     const data = await fetch(
-      `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${GOOGLE_API_KEY}`,
+      YOUTUBE_VIDEO_DATA_API(videoId),
     );
     const json = await data.json();
-    const title = json?.items[0]?.snippet?.title;
+    const title = json?.items?.[0]?.snippet?.title;
     setVideoTitle(title);
-    console.log(title);
+    setDescription(json?.items?.[0]?.snippet?.description)
+    setChannelId(json?.items?.[0]?.snippet?.channelId)
+    setViewCount(json?.items?.[0]?.statistics?.viewCount) ;
+    setPublishedAt(json?.items?.[0]?.snippet?.publishedAt);
+    
+    console.log(json);
     
     getSuggestedVideos(title); // 👈 then fetch suggestions using the title
   };
@@ -41,8 +51,9 @@ const WatchPage = () => {
 
   return (
     <div className="flex">
-      <div>
+      <div className="m-4 p-2 w-[1100px]">
         <iframe
+        className="rounded-lg"
           width="1100"
           height="550"
           src={"https://www.youtube.com/embed/" + videoId}
@@ -53,7 +64,7 @@ const WatchPage = () => {
           allowFullScreen
         ></iframe>
         <div>
-            <Description  />
+            <Description videoTitle={videoTitle} description={description} channelId={channelId} viewCount={viewCount} publishedAt={publishedAt}/>
         </div>
       </div>
       <div>

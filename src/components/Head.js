@@ -1,14 +1,17 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import mic from "../assets/mic.png";
 import user from "../assets/user.png";
 import { toggleMenu } from "../utils/appSlice";
 import { useEffect, useState } from "react";
 import { YOUTUBE_SEARCH_API } from "../utils/constants";
+import { cacheResults } from "../utils/searchSlice";
 
 const Head = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestion, setSuggestion] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const searchCache = useSelector((store) => store.search);
 
   const dispatch = useDispatch();
   const toggleMenuHandler = () => {
@@ -16,12 +19,13 @@ const Head = () => {
   };
 
   useEffect(() => {
-    if (searchQuery.length === 0) {
-      setSuggestion([]);
-      setShowSuggestions(false);
-      return;
-    }
-    const timer = setTimeout(() => getSuggestions(), 200);
+    const timer = setTimeout(() => {
+      if (searchCache[searchQuery]) {
+        setSuggestion(searchCache[searchQuery]);
+      } else {
+        getSuggestions();
+      }
+    }, 200);
 
     return () => {
       clearTimeout(timer);
@@ -34,6 +38,12 @@ const Head = () => {
       const json = await data.json();
       setSuggestion(json[1]);
       setShowSuggestions(true);
+
+      dispatch(
+        cacheResults({
+          [searchQuery]: json[1],
+        }),
+      );
     } catch (e) {
       console.log("Error fetching suggestions", e);
     }
@@ -97,7 +107,12 @@ const Head = () => {
                     setShowSuggestions(false);
                   }}
                 >
-                  <img alt="search" className="w-5 h-5 mr-5" src="https://www.freeiconspng.com/uploads/search-icon-png-21.png" /> {s}
+                  <img
+                    alt="search"
+                    className="w-5 h-5 mr-5"
+                    src="https://www.freeiconspng.com/uploads/search-icon-png-21.png"
+                  />{" "}
+                  {s}
                 </li>
               ))}
             </ul>
