@@ -1,6 +1,4 @@
-// export const GOOGLE_API_KEY = "AIzaSyA0XpH7X9dqgMF9tLHMG2tE8Of8Ck2nxss";
-// export const GOOGLE_API_KEY = "AIzaSyAqKtrE-kTtgFR22OPeE9_3WCW9cv5Un7I";
-export const GOOGLE_API_KEY = "AIzaSyAV0UR8PAFgIN-sc4ZoqT2VT2HDep9MHa4";
+import { GOOGLE_API_KEY } from "./api";
 
 // videos for home page
 export const YOUTUBE_VIDEO_API =
