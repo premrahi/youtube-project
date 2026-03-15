@@ -5,6 +5,7 @@ import { toggleMenu } from "../utils/appSlice";
 import { useEffect, useState } from "react";
 import { YOUTUBE_SEARCH_API } from "../utils/constants";
 import { cacheResults } from "../utils/searchSlice";
+import { Link } from "react-router-dom";
 
 const Head = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -60,14 +61,16 @@ const Head = () => {
           src="https://static.vecteezy.com/system/resources/previews/046/501/988/non_2x/hamburger-menu-bar-flat-icon-for-apps-and-websites-website-navigation-hamburger-menu-icons-vector.jpg"
         />
         <div className="relative">
-          <img
-            alt="yt-icon"
-            className="w-24 cursor-pointer"
-            src="https://www.freeiconspng.com/uploads/youtube-logo-png-transparent-image-5.png"
-          />
-          <span className="absolute top-0 -right-4 text-gray-500 text-xs">
-            IN
-          </span>
+          <Link to="/">
+            <img
+              alt="yt-icon"
+              className="w-24 cursor-pointer"
+              src="https://www.freeiconspng.com/uploads/youtube-logo-png-transparent-image-5.png"
+            />
+            <span className="absolute top-0 -right-4 text-gray-500 text-xs">
+              IN
+            </span>
+          </Link>
         </div>
       </div>
 
@@ -121,7 +124,7 @@ const Head = () => {
       </div>
 
       {/* Right - User Icon */}
-      <div className="flex-shrink-0 ">
+      <div className="cursor-pointer flex-shrink-0 ">
         <img alt="user" src={user} className="w-10 " />
       </div>
     </div>

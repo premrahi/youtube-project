@@ -1,20 +1,26 @@
 import { useSelector } from "react-redux";
 import Sidebar from "./Sidebar";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import Head from "./Head";
 
 const Body = () => {
-  const isMenuOpen = useSelector( store => store.app.isMenuOpen)
-
-
+  const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
+  const location = useLocation();
+  const isWatchPage = location.pathname === "/watch";
   return (
-    <div className="flex ">
+    <>
+      <Head />
+      <div className="flex ">
+        {isMenuOpen && (
+          <div className={isWatchPage ? "absolute z-10" : "w-60"}>
+            <Sidebar />
+          </div>
+        )}
 
-      {isMenuOpen && <div className="w-60"> <Sidebar /></div>}  
+        <Outlet />
+      </div>
+    </>
+  );
+};
 
-      <Outlet />
-        
-    </div>
-  )
-}
-
-export default Body ;
+export default Body;

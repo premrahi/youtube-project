@@ -7,7 +7,7 @@ export const YOUTUBE_VIDEO_API =
 
 // search videos similar to title video suggestions
 export const YOUTUBE_SUGGESTIONS_API = (query) =>
-  `https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${query}&type=video&maxResults=15&key=${GOOGLE_API_KEY}`;
+  `https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${query}&type=video&maxResults=40&key=${GOOGLE_API_KEY}`;
 
 // search suggestion
 export const YOUTUBE_SEARCH_API = (query) =>
@@ -18,7 +18,6 @@ export const YOUTUBE_VIDEO_DATA_API = (videoId) =>
 
 export const YOUTUBE_CHANNEL_API = (ID) =>
   `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${ID}&key=${GOOGLE_API_KEY}`;
-
 
 export const YOUTUBE_COMMENTS_API = (videoId) =>
   `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${videoId}&maxResults=20&key=${GOOGLE_API_KEY}`;

@@ -52,7 +52,7 @@ const WatchPage = () => {
   //   console.log(videoTitle);
 
   return (
-    <div className="flex">
+    <div className="flex relative">
       <div className="m-4 p-2 w-[1100px]">
         <iframe
         className="rounded-lg"
